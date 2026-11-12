@@ -17,7 +17,7 @@ class VisiteRepository extends ServiceEntityRepository
     }
     
     /**
-     * 
+     * Retourne toutes les visites triées sur un champ
      * @param type $champ
      * @param type $ordre
      * @return Visite[]
@@ -28,7 +28,8 @@ class VisiteRepository extends ServiceEntityRepository
     }
     
     /**
-     * 
+     * Enregistrements dont un champ est égal à une valeur
+     * ou tous les enregistrements si la valeur est vide
      * @param type $champ
      * @param type $valeur
      * @return VIsite[]
@@ -43,5 +44,15 @@ class VisiteRepository extends ServiceEntityRepository
                     ->setParameter('valeur', $valeur)
                     ->orderBy('v.datecreation', 'DESC')->getQuery()->getResult();
         }
+    }
+    
+    /**
+     * Supprime une visite
+     * @param Visite $visite
+     * @return void
+     */
+    public function remove(Visite $visite): void{
+        $this->getEntityManager()->remove($visite);
+        $this->getEntityManager()->flush();
     }
 }
